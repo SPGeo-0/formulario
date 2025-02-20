@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPGeo - Formulário Profissional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --spgeo-red: #cc0000;
+            --spgeo-dark: #2a2a2a;
+            --spgeo-light: #f8f9fa;
+            --spgeo-accent: #ff4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: var(--spgeo-light);
+            color: var(--spgeo-dark);
+        }
+
+        .geometric-background {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .geometric-background::before,
+        .geometric-background::after {
+            content: '';
+            position: absolute;
+            background: var(--spgeo-red);
+            z-index: 0;
+        }
+
+        .geometric-background::before {
+            top: -50px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            transform: rotate(45deg);
+            opacity: 0.1;
+        }
+
+        .geometric-background::after {
+            bottom: -150px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            transform: rotate(-30deg);
+            opacity: 0.1;
+        }
+
+        .form-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .spgeo-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            max-width: 180px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--spgeo-dark);
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--spgeo-red);
+            font-size: 1.1rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            height: 100px;
+            padding-left: 15px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--spgeo-red);
+            box-shadow: 0 0 8px rgba(204,0,0,0.2);
+            outline: none;
+        }
+
+        .spgeo-button {
+            background: var(--spgeo-red);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .spgeo-button:hover {
+            background: var(--spgeo-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .spgeo-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .error-message {
+            color: var(--spgeo-red);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .input-error {
+            border-color: var(--spgeo-red) !important;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        input[type="radio"] {
+            accent-color: var(--spgeo-red);
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .input-container label {
+            cursor: pointer;
+            font-weight: 400;
+            color: var(--spgeo-dark);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        @media (max-width: 768px) {
+            .geometric-background {
+                padding: 1rem;
+            }
+            
+            .form-wrapper {
+                padding: 1.5rem;
+            }
+            
+            .geometric-background::before,
+        .geometric-background::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="geometric-background">
+        <div class="form-wrapper">
+            <div class="spgeo-header">
+                <img src="mini logo.png" alt="SPGeo Logo" class="logo">
+                <h1>Formulário de Contato</h1>
+            </div>
+            
+            <form id="form-spgeo" class="spgeo-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <div class="input-container">
+                            <i class="fas fa-user icon"></i>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF/CNPJ</label>
+                        <div class="input-container">
+                            <i class="fas fa-id-card icon"></i>
+                            <input type="text" id="cpf" name="cpf" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <div class="input-container">
+                            <i class="fas fa-map-marker-alt icon"></i>
+                            <input type="text" id="cep" name="cep" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco">Endereço</label>
+                        <div class="input-container">
+                            <i class="fas fa-map icon"></i>
+                            <input type="text" id="endereco" name="endereco" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <div class="input-container">
+                            <i class="fas fa-city icon"></i>
+                            <input type="text" id="cidade" name="cidade" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deseja venda ou locação do produto?</label>
+                        <div class="input-container">
+                            <div style="display: flex; gap: 20px; padding: 12px 0;">
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="radio" name="vendaLocacao" value="Venda" checked>
+                                    Venda
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="radio" name="vendaLocacao" value="Locação">
+                                    Locação
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <div class="input-container">
+                            <i class="fas fa-envelope icon"></i>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detalhes">Detalhes</label>
+                        <textarea id="detalhes" name="detalhes" required></textarea>
+                        <span class="error-message">Campo obrigatório</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="spgeo-button">
+                    Enviar para WhatsApp
+                    <i class="fas fa-paper-plane button-icon"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
